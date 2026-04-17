@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Repository</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>keanu brangkas</h1>
+                    <p class="subtitle">repositories by</p>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="fileCount">0</span>
+                        <span class="stat-label">Files</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="files-section">
+                <div class="section-header">
+                    <h2>repositories</h2>
+                    <p class="section-description">donload aja loh ya</p>
+                </div>
+
+                <div class="files-grid" id="filesGrid">
+                    <!-- Files will be dynamically inserted here -->
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">📁</div>
+                    <p>No files available yet</p>
+                </div>
+            </section>
+
+            <!-- Add Files Info (for developer) -->
+            <section class="info-section">
+                <h3>To add files:</h3>
+                <p class="info-text">Edit the <code>files.js</code> file and add your files to the files array.</p>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; yoman ja atuh wak.</p>
+        </footer>
+    </div>
+
+    <script src="files.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
