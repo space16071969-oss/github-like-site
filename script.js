@@ -173,9 +173,12 @@ function createFileCard(file, index) {
     card.className = 'file-card';
     card.style.animationDelay = `${index * 0.05}s`;
 
-    // Check if icon is a URL or emoji
+    // Check if icon is an image (URL, data URI, or emoji)
     const isImageUrl = file.icon.startsWith('http://') || file.icon.startsWith('https://');
-    const iconHtml = isImageUrl 
+    const isDataUri = file.icon.startsWith('data:image/');
+    const isImage = isImageUrl || isDataUri;
+    
+    const iconHtml = isImage 
         ? `<img src="${file.icon}" class="file-icon-img" alt="icon">` 
         : `<div class="file-icon">${file.icon}</div>`;
 
