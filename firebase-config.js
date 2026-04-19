@@ -1,5 +1,5 @@
 // Firebase Configuration
-// TODO: Replace with your Firebase project credentials from Firebase Console
+// Replace with your Firebase project credentials from Firebase Console
 
 const firebaseConfig = {
   apiKey: "AIzaSyCImqa9Wn02L6NOGhsgSrkumjPwWwHZNLM",
@@ -11,10 +11,10 @@ const firebaseConfig = {
   measurementId: "G-LD8PXBV0XB"
 };
 
-// Initialize Firebase
+// Initialize Firebase (Compat API)
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Reference to shared files collection
+// Reference to shared files collections
 const PUBLIC_FILES_COLLECTION = 'public_files';
 const SECRET_FILES_COLLECTION = 'secret_files';
