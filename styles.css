@@ -81,7 +81,7 @@ body::before {
 
 .subtitle {
     font-size: 0.95rem;
-    color: #2a2a2a;
+    color: #cfcfcf;
     font-weight: 400;
     letter-spacing: 0.5px;
 }
@@ -110,12 +110,12 @@ body::before {
 .stat-number {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #cfcfcf;
 }
 
 .stat-label {
     font-size: 0.75rem;
-    color: #3a3a3a;
+    color: #cfcfcf;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: 3px;
@@ -360,7 +360,7 @@ body::before {
 }
 
 .info-text {
-    color: #2a2a2a;
+    color: #cfcfcf;
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -369,7 +369,7 @@ body::before {
     background: rgba(0, 0, 0, 0.3);
     padding: 2px 8px;
     border-radius: 4px;
-    color: #1a1a1a;
+    color: #cfcfcf;
     font-family: 'Courier New', monospace;
 }
 
@@ -378,7 +378,7 @@ body::before {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 40px 0;
     text-align: center;
-    color: #1a1a1a;
+    color: #cfcfcf;
     font-size: 0.9rem;
     animation: fadeIn 0.8s ease-out 0.5s both;
 }
