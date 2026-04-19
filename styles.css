@@ -307,13 +307,13 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.4s ease-out;
 }
 
 .pin-modal.hidden {
@@ -321,28 +321,33 @@ body::before {
 }
 
 .pin-modal-content {
-    background: rgba(30, 30, 40, 0.95);
-    border: 1px solid rgba(167, 139, 250, 0.4);
-    border-radius: 20px;
+    background: rgba(20, 20, 35, 0.5);
+    border: 1.5px solid rgba(167, 139, 250, 0.5);
+    border-radius: 28px;
     padding: 0;
     max-width: 420px;
     width: 90%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(167, 139, 250, 0.1);
-    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(167, 139, 250, 0.15),
+        0 0 120px rgba(96, 165, 250, 0.08);
+    animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(20px);
     overflow: hidden;
 }
 
 .pin-modal-body {
-    padding: 50px 40px;
+    padding: 60px 45px;
     text-align: center;
 }
 
 .pin-icon {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
+    font-size: 4rem;
+    margin-bottom: 25px;
     display: inline-block;
-    animation: iconBounce 0.6s ease-out;
+    animation: iconBounce 0.7s ease-out;
+    filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.4));
 }
 
 @keyframes iconBounce {
@@ -351,7 +356,7 @@ body::before {
         opacity: 0;
     }
     50% {
-        transform: scale(1.1);
+        transform: scale(1.15);
     }
     100% {
         transform: scale(1) rotateZ(0);
@@ -360,66 +365,86 @@ body::before {
 }
 
 .pin-modal-header {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .pin-modal-header h2 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    color: #cfcfcf;
-    margin-bottom: 8px;
-    letter-spacing: 0.3px;
+    color: #f0f0f0;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #e0e0ff 0%, #b8b8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .pin-modal-header p {
-    color: #a0a0a0;
-    font-size: 0.9rem;
+    color: #b8b8c8;
+    font-size: 0.95rem;
     font-weight: 400;
+    letter-spacing: 0.3px;
 }
 
 .pin-input-container {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .pin-input {
     width: 100%;
-    padding: 18px;
-    border: 2px solid rgba(167, 139, 250, 0.3);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    color: #cfcfcf;
-    font-size: 1.8rem;
-    letter-spacing: 0.5em;
+    padding: 18px 20px;
+    border: 1.5px solid rgba(167, 139, 250, 0.4);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f0f0f0;
+    font-size: 2rem;
+    letter-spacing: 0.8em;
     text-align: center;
     font-family: 'Courier New', monospace;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    font-weight: 600;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 0 20px rgba(167, 139, 250, 0.05);
+}
+
+.pin-input::placeholder {
+    color: rgba(240, 240, 240, 0.3);
 }
 
 .pin-input:focus {
     outline: none;
-    border-color: rgba(167, 139, 250, 0.7);
-    background: rgba(167, 139, 250, 0.05);
-    box-shadow: 0 0 25px rgba(167, 139, 250, 0.3), inset 0 0 15px rgba(167, 139, 250, 0.05);
+    border-color: rgba(167, 139, 250, 0.8);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        0 0 40px rgba(167, 139, 250, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 0 20px rgba(167, 139, 250, 0.1);
     transform: scale(1.02);
 }
 
 .pin-submit-btn {
     width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.9) 0%, rgba(96, 165, 250, 0.9) 100%);
     color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 15px rgba(167, 139, 250, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .pin-submit-btn::before {
@@ -429,15 +454,18 @@ body::before {
     left: 50%;
     width: 0;
     height: 0;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
 }
 
 .pin-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(167, 139, 250, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 25px rgba(167, 139, 250, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, rgba(167, 139, 250, 1) 0%, rgba(96, 165, 250, 1) 100%);
 }
 
 .pin-submit-btn:hover::before {
@@ -446,18 +474,29 @@ body::before {
 }
 
 .pin-submit-btn:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
 }
 
 .pin-error {
-    margin-bottom: 20px;
-    padding: 12px 15px;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.5);
-    border-radius: 10px;
-    color: #fca5a5;
+    margin-bottom: 25px;
+    padding: 14px 16px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1.5px solid rgba(239, 68, 68, 0.6);
+    border-radius: 12px;
+    color: #ff9a9a;
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(10px);
+    animation: shake 0.4s ease-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
     font-weight: 500;
     animation: shake 0.4s ease;
 }
