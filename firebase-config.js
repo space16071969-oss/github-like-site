@@ -2,12 +2,13 @@
 // TODO: Replace with your Firebase project credentials from Firebase Console
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCImqa9Wn02L6NOGhsgSrkumjPwWwHZNLM",
+  authDomain: "github-like-site.firebaseapp.com",
+  projectId: "github-like-site",
+  storageBucket: "github-like-site.firebasestorage.app",
+  messagingSenderId: "710360958538",
+  appId: "1:710360958538:web:114185be3aaaf2f5c648b3",
+  measurementId: "G-LD8PXBV0XB"
 };
 
 // Initialize Firebase
