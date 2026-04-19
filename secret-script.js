@@ -7,30 +7,29 @@ const fileCount = document.getElementById('fileCount');
 const PIN_CODE = '12345';
 const PIN_STORAGE_KEY = 'pin_authenticated';
 
-// Track all files (from files.js + Firebase)
+// Track all files
 let allFiles = [];
 let isFirebaseReady = false;
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     initPinAuthentication();
-    loadSharedFiles();
+    loadSecretSharedFiles();
     renderFiles();
     initFileAddModal();
-    initAuthenticationBar();
 });
 
-// Load shared files from Firebase
-function loadSharedFiles() {
+// Load secret shared files from Firebase
+function loadSecretSharedFiles() {
     if (typeof db === 'undefined') {
-        console.warn('Firebase not initialized. Using local files only.');
-        allFiles = [...files];
+        console.warn('Firebase not initialized. Using empty secret vault.');
+        allFiles = [];
         isFirebaseReady = false;
         return;
     }
 
     try {
-        db.collection('public_files').onSnapshot((snapshot) => {
+        db.collection('secret_files').onSnapshot((snapshot) => {
             const firebaseFiles = [];
             snapshot.forEach((doc) => {
                 firebaseFiles.push({
@@ -39,18 +38,17 @@ function loadSharedFiles() {
                     isFromFirebase: true
                 });
             });
-            // Combine static files with Firebase files
-            allFiles = [...files, ...firebaseFiles];
+            allFiles = [...firebaseFiles];
             renderFiles();
             isFirebaseReady = true;
         }, (error) => {
-            console.error('Error loading Firebase files:', error);
-            allFiles = [...files];
+            console.error('Error loading Firebase secret files:', error);
+            allFiles = [];
             isFirebaseReady = true;
         });
     } catch (e) {
         console.error('Error setting up Firebase listener:', e);
-        allFiles = [...files];
+        allFiles = [];
         isFirebaseReady = false;
     }
 }
@@ -58,12 +56,12 @@ function loadSharedFiles() {
 // Save file to Firebase
 async function saveFileToFirebase(fileData) {
     if (!isFirebaseReady || typeof db === 'undefined') {
-        showNotification('Firebase not connected. File saved locally only.', 'error');
+        showNotification('Firebase not connected. File not saved.', 'error');
         return false;
     }
 
     try {
-        await db.collection('public_files').add(fileData);
+        await db.collection('secret_files').add(fileData);
         return true;
     } catch (e) {
         console.error('Error saving to Firebase:', e);
@@ -79,7 +77,7 @@ async function deleteFileFromFirebase(firebaseId) {
     }
 
     try {
-        await db.collection('public_files').doc(firebaseId).delete();
+        await db.collection('secret_files').doc(firebaseId).delete();
         return true;
     } catch (e) {
         console.error('Error deleting from Firebase:', e);
@@ -174,14 +172,12 @@ function createFileCard(file, index) {
     card.style.animationDelay = `${index * 0.05}s`;
 
     // Check if icon is a URL or emoji
-    const isImageUrl = file.icon.startsWith('http://') || file.icon.startsWith('https://');
+    const isImageUrl = file.icon.startsWith('http://') || file.icon.startsWith('https://') || file.icon.startsWith('data:');
     const iconHtml = isImageUrl 
         ? `<img src="${file.icon}" class="file-icon-img" alt="icon">` 
         : `<div class="file-icon">${file.icon}</div>`;
 
-    const deleteBtn = file.isFromFirebase 
-        ? `<button class="delete-btn" data-index="${index}" data-firebase-id="${file.firebaseId}" title="Delete this file">🗑️</button>` 
-        : '';
+    const deleteBtn = `<button class="delete-btn" data-index="${index}" data-firebase-id="${file.firebaseId}" title="Delete this file">🗑️</button>`;
 
     card.innerHTML = `
         ${iconHtml}
@@ -201,15 +197,13 @@ function createFileCard(file, index) {
         downloadFile(file.url, file.name);
     });
 
-    // Add delete functionality for Firebase files
-    if (file.isFromFirebase) {
-        const delBtn = card.querySelector('.delete-btn');
-        delBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const firebaseId = delBtn.getAttribute('data-firebase-id');
-            deleteFile(index, firebaseId);
-        });
-    }
+    // Add delete functionality
+    const delBtn = card.querySelector('.delete-btn');
+    delBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const firebaseId = delBtn.getAttribute('data-firebase-id');
+        deleteFile(index, firebaseId);
+    });
 
     return card;
 }
@@ -288,81 +282,6 @@ function showNotification(message, type = 'success') {
             document.body.removeChild(notification);
         }, 300);
     }, 3000);
-}
-
-// Authentication system for nested access
-const AUTH_CODE_1 = 'hartmann69420';
-const AUTH_CODE_2 = 'idhensk8473hhejsi';
-
-function initAuthenticationBar() {
-    const authInput1 = document.getElementById('authInput1');
-    const authBtn1 = document.getElementById('authBtn1');
-    const authResult1 = document.getElementById('authResult1');
-    const authStep1 = document.getElementById('authStep1');
-    const authStep2 = document.getElementById('authStep2');
-
-    const authInput2 = document.getElementById('authInput2');
-    const authBtn2 = document.getElementById('authBtn2');
-    const authResult2 = document.getElementById('authResult2');
-
-    // Step 1: Verify first code
-    authBtn1.addEventListener('click', () => {
-        const input = authInput1.value.trim();
-        
-        if (input === AUTH_CODE_1) {
-            authResult1.textContent = '✓ Correct';
-            authResult1.className = 'auth-result correct';
-            authResult1.style.display = 'block';
-            authInput1.disabled = true;
-            authBtn1.disabled = true;
-            
-            // Show step 2 after delay
-            setTimeout(() => {
-                authStep1.style.display = 'none';
-                authStep2.style.display = 'block';
-                authInput2.focus();
-            }, 600);
-        } else {
-            authResult1.textContent = '✗ False';
-            authResult1.className = 'auth-result incorrect';
-            authResult1.style.display = 'block';
-            authInput1.value = '';
-            authInput1.focus();
-        }
-    });
-
-    // Step 2: Verify second code and redirect
-    authBtn2.addEventListener('click', () => {
-        const input = authInput2.value.trim();
-        
-        if (input === AUTH_CODE_2) {
-            authResult2.textContent = '✓ Correct';
-            authResult2.className = 'auth-result correct';
-            authResult2.style.display = 'block';
-            authInput2.disabled = true;
-            authBtn2.disabled = true;
-            
-            // Redirect to secret endpoint
-            setTimeout(() => {
-                window.location.href = window.location.origin + '/secret';
-            }, 800);
-        } else {
-            authResult2.textContent = '✗ False';
-            authResult2.className = 'auth-result incorrect';
-            authResult2.style.display = 'block';
-            authInput2.value = '';
-            authInput2.focus();
-        }
-    });
-
-    // Allow Enter key to submit
-    authInput1.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') authBtn1.click();
-    });
-
-    authInput2.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') authBtn2.click();
-    });
 }
 
 // Initialize Add File Modal
@@ -483,6 +402,8 @@ function initFileAddModal() {
         reader.readAsDataURL(fileIconInput);
     });
 }
+
+// Add animation styles for notifications
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideInRight {
